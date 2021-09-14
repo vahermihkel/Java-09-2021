@@ -1,12 +1,16 @@
 package ee.mihkel;
 
+import ee.mihkel.character.Character;
+import ee.mihkel.item.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class World {
     private final int height;
     private final int width;
-    private final List<Player> characterList = new ArrayList<>();
+    private final List<Character> characterList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
 
     public World(int _height, int _width) {
         this.height = _height;
@@ -21,8 +25,16 @@ public class World {
         return width;
     }
 
-    public void addCharacter(Player player) {
-        this.characterList.add(player);
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
+
+    public void addCharacter(Character character) {
+        this.characterList.add(character);
+    }
+
+    public void addItem(Item item) {
+        this.itemList.add(item);
     }
 
     public void printMap() {
@@ -36,9 +48,14 @@ public class World {
                 } else {
                     symbol = ' ';
                 }
-                for (Player p: characterList) {
-                    if (p.getyCoord() == y && p.getxCoord() == x) {
-                        symbol = p.getSymbol();
+                for (Item i: itemList) {
+                    if (i.getyCoord() == y && i.getxCoord() == x) {
+                        symbol = i.getSymbol();
+                    }
+                }
+                for (Character c: characterList) {
+                    if (c.getyCoord() == y && c.getxCoord() == x && c.isVisible()) {
+                        symbol = c.getSymbol();
                     }
                 }
                 System.out.print(symbol);

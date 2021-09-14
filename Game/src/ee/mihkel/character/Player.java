@@ -1,11 +1,22 @@
-package ee.mihkel;
+package ee.mihkel.character;
 
-public class Player extends Character {
+import ee.mihkel.World;
+import ee.mihkel.item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player extends Character  {
     private Direction direction;
+    private final List<Item> inventory = new ArrayList<>();
 
-    public Player() {
-        super('X');
+    public Player(World world) {
+        super(world, 'X'); // parent classi constructor
         this.direction = Direction.UP;
+    }
+
+    public void addItem(Item item) {
+        this.inventory.add(item);
     }
 
     public void move(String input, World world) {
