@@ -15,9 +15,27 @@ public class Player extends Character  {
         this.direction = Direction.UP;
     }
 
+    // Kui ei ole eset inventory-s siis lisa
+    // Kui on ese juba inventory-s olemas, siis lisa kasutuskord
+    // Item.increaseDurability();
     public void addItem(Item item) {
-        this.inventory.add(item);
+        if (!this.inventory.contains(item)) {
+            this.inventory.add(item);
+        } else {
+            item.increaseDurability();
+        }
     }
+
+    public void useItem(Item item) {
+        item.decreaseDurability();
+        if (item.getDurability() == 0) {
+            inventory.remove(item);
+        }
+    }
+    // Kui kasutuskord läheb nulli, siis eemalda ese
+    // Item.decreaseDurability() võiks käia siit
+    // Kui durability on 0, siis eemalda listist
+
 
     public void move(String input, World world) {
         switch (input) {
@@ -57,4 +75,24 @@ public class Player extends Character  {
                 break;
         }
     }
+
+    public void showItems() {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            System.out.println(i+1 + ". "+ item.getName() + "(" + item.getStrength() + "), kasutuskordi: " + item.getDurability());
+        }
+    }
+
+    public Item getItem(int index) {
+        return inventory.get(index-1);
+    }
+
+    public boolean hasItems() {
+        return !this.inventory.isEmpty();
+    }
+
+    public void generateRandomCoordinates(World world) {
+        generateCoordinates(world);
+    }
+
 }

@@ -10,12 +10,22 @@ public abstract class Item {
     private char symbol;
     private double strength;
     private int durability;
+    private String name;
 
-    public Item(World world, double strength, int durability) {
+    public Item(World world, double strength, int durability, String name) {
         generateCoordinates(world);
         this.symbol = 'I';
         this.strength = strength;
         this.durability = durability;
+        this.name = name;
+    }
+
+    // Constructor Overloading
+    public Item(World world, int durability, String name) {
+        generateCoordinates(world);
+        this.symbol = 'I';
+        this.durability = durability;
+        this.name = name;
     }
 
     private void generateCoordinates(World world) {
@@ -42,5 +52,17 @@ public abstract class Item {
 
     public int getDurability() {
         return durability;
+    }
+
+    public void decreaseDurability() {
+        durability--;
+    }
+
+    public void increaseDurability() {
+        durability++;
+    }
+
+    public String getName() {
+        return name;
     }
 }
