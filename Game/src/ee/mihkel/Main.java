@@ -52,94 +52,39 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        while(!input.equals("end")) {
-            player.move(input, world);
-            if (player.getxCoord() == enemy.getxCoord() && player.getyCoord() == enemy.getyCoord() && enemy.isVisible()) {
-                enemy.setVisible(false);
-                player.showItems();
-                if (player.hasItems()) {
-                    System.out.println("Ütle number millist eset tahad: ");
-                    Item item = null;
-                    while (item == null) {
-                        try {
-                            input = scanner.nextLine();
-                            item = player.getItem(Integer.parseInt(input));
-                            //item.decreaseDurability();
-                            player.useItem(item);
-                            System.out.println("Valisid eseme: " + item.getName());
-                            if (item.getName().equals("Teleporteerija")) {
-                                player.generateRandomCoordinates(world);
-                            } else {
-                                System.out.println("Ütle üks number 1-3");
-                                int userNumber = 0;
-                                while (userNumber == 0) {
-                                    try {
-                                        input = scanner.nextLine();
-                                        userNumber = Integer.parseInt(input);
-                                        // while userNumber == 0
-                                        // sisestasid numbri asemel mingi muu sümboli
-                                        // try catch
-                                        if (userNumber < 1 || userNumber > 3) {
-                                            throw new TooBigOrSmallNumberException();
-                                        }
-                                        Random random = new Random();
-                                        int enemyNumber = random.nextInt(3)+1;
-                                        if (userNumber == enemyNumber) {
-                                            // kaotab enemy elu
-                                            System.out.println("ENemy kaotab elu");
-                                        } else {
-                                            // kaotab player elu
-                                            System.out.println("Mängija kaotab elu");
-                                        }
-                                    } catch (TooBigOrSmallNumberException exception) {
-                                        exception.printStackTrace();
-//                                        System.out.println("Sisestasid liiga suure või väikse numbri, sisesta uuesti: ");
-                                    } catch (NumberFormatException e) {
-                                        System.out.println("Sisestasid numbri asemel muu sümboli, sisesta uuesti: ");
-                                    }
-                                }
-                            }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Sisestasid numbri asemel muu sümboli, sisesta uuesti: ");
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println("Sisestasid liiga suure või väikse numbri, sisesta uuesti: ");
-                        }
-                    }
-                } else {
-                    System.out.println("Esemeid ei ole millega võidelda, mine korja!");
-                }
-                // 1. näita kõiki esemeid
-                // 2. vali üks kindel ese --- try-catch
-                // 3. esemelt võtan ära kasutuskorra
-                // 4. player peab ütlema ühe numbri 1-st 3-ni ja enemy genereerib ka numbri 1-3  --- try-catch
-                            // custom exceptionit
-                // 5. kui sai pihta, siis võtab enemy-lt elu, kui paneb mööda, võetakse sinult elu --- char-s lisada elud
-                // 6. käib nii kaua kuni elud otsa saavad
-                // 7. kui mängijal saavad elud otsa, siis on läbi --- throw new exception
-                // 8. kui vastasel elud otsa saavad, siis kogun ta listi ja saan mängu läbi saades näha
-                //          kelle olen kätte saanud --- HashMap, omab endas elemente milles on võti ja väärtus
+        try {
+            while(!input.equals("end")) {
+                player.move(input, world);
+                GameController.checkPlayerInteractions(world, player, enemy, questMaster, dagger, hammer, sword, teleporter, scanner);
+                world.printMap();
+                input = scanner.nextLine();
             }
-            if (player.getxCoord() == questMaster.getxCoord() && player.getyCoord() == questMaster.getyCoord()) {
-                enemy.setVisible(true);
-                enemy.generateRandomCoordinates(world);
-                questMaster.setVisible(false);
-            } else if (!questMaster.isVisible()) {
-                questMaster.setVisible(true);
-            }
-
-            checkIfPlayerTakesItem(player, dagger);
-            checkIfPlayerTakesItem(player, hammer);
-            checkIfPlayerTakesItem(player, sword);
-            checkIfPlayerTakesItem(player, teleporter);
-
-            world.printMap();
-            input = scanner.nextLine();
+            GameController.endGame(player);
+        } catch (GameOverException e) {
+            GameController.endGame(player);
         }
     }
 
-    private static void checkIfPlayerTakesItem(Player player, Item item) {
-        if (player.getxCoord() == item.getxCoord() && player.getyCoord() == item.getyCoord()) {
-            player.addItem(item);
-        }
-    }
 }
+
+// 1. Enemyl on erinevad tüübid: ENUM, uue suvalise ENUMi väärtuse genereerimine
+// 2. Uut enemyt tehes genereeritakse talle suvaline ENUMi tüüp 7
+// 3. randomiseCoordinates uus suvaline ENUMi tüüp
+// 4. switch-case milline ENUMi tüüp on, vastavalt sellele elud
+// 5. kui playerilt elusid võetakse siis võetakse ka ENUMi tüübi järgi
+// 6. HashMapis on nii Tüüp kui ka arv mitu on tapetud
+// 7. HashMapi lisamine - list, kus on võti väärtus paarid
+//          võti on ENUMi TÜÜP ja väärtus on number mitu korda on tapetud
+// 8. HashMapi kuvamine - forEach((key,value)-> TEEN MIDAGI)
+
+// 1. Player.takeHealth, siis võtab kasutusele eseme tugevuse
+// 2. Itemil on ka ENUM ja tüüp - bronze, silver, gold, platinum
+// 3. Level, mis tõuseb iga kord kui seda kasutatakse
+// 4. Kui ma tõstan levelit, siis lähen koheselt kontrollima kas saan suurendada tüüpi
+// 5. Kui eseme tugevust võtan, siis annan tüübi võrra tugevusele tugevust juurde
+
+// STATIC
+
+// Interfaces
+// Threads
+// Geneerika

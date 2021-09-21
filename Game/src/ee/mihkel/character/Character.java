@@ -2,7 +2,6 @@ package ee.mihkel.character;
 
 import ee.mihkel.World;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -12,6 +11,7 @@ public abstract class Character {
     private int yCoord;
     private final char symbol;
     private boolean isVisible;
+    private double health;
 
     // 5   1 ja 5
     // 2-4
@@ -67,6 +67,18 @@ public abstract class Character {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void takeHealth(double strength) {
+        this.health -= strength;
+    }
+
+    protected void setHealth(double health) {
+        this.health = health;
     }
 
     public void changexCoord(boolean isIncrease) {

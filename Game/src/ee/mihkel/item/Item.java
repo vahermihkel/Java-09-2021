@@ -11,6 +11,9 @@ public abstract class Item {
     private double strength;
     private int durability;
     private String name;
+    private ItemType itemType;
+    private int level;
+    private static double totalStrength;
 
     public Item(World world, double strength, int durability, String name) {
         generateCoordinates(world);
@@ -18,6 +21,8 @@ public abstract class Item {
         this.strength = strength;
         this.durability = durability;
         this.name = name;
+        this.itemType = ItemType.BRONZE;
+        this.level = 0;
     }
 
     // Constructor Overloading
@@ -26,6 +31,7 @@ public abstract class Item {
         this.symbol = 'I';
         this.durability = durability;
         this.name = name;
+        this.itemType = ItemType.BRONZE;
     }
 
     private void generateCoordinates(World world) {
@@ -47,7 +53,16 @@ public abstract class Item {
     }
 
     public double getStrength() {
-        return strength;
+        switch (itemType) {
+            case SILVER:
+                return strength * 1.5;
+            case GOLD:
+                return strength * 2;
+            case PLATINUM:
+                return strength * 2.5;
+            default:
+                return strength;
+        }
     }
 
     public int getDurability() {
@@ -56,6 +71,26 @@ public abstract class Item {
 
     public void decreaseDurability() {
         durability--;
+        level++;
+        checkItemType();
+    }
+
+    private void checkItemType() {
+        int newLevel = level/2;
+        switch (newLevel) {
+            case 0:
+                this.itemType = ItemType.BRONZE;
+                break;
+            case 1:
+                this.itemType = ItemType.SILVER;
+                break;
+            case 2:
+                this.itemType = ItemType.GOLD;
+                break;
+            case 3:
+                this.itemType = ItemType.PLATINUM;
+                break;
+        }
     }
 
     public void increaseDurability() {
@@ -64,5 +99,13 @@ public abstract class Item {
 
     public String getName() {
         return name;
+    }
+
+    public static double getTotalStrength() {
+        return totalStrength;
+    }
+
+    public static void setTotalStrength(double totalStrength) {
+        Item.totalStrength += totalStrength;
     }
 }
