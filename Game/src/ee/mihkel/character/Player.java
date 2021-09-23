@@ -42,6 +42,7 @@ public class Player extends Character  {
     // Item.increaseDurability();
     public void addItem(Item item) {
         if (!this.inventory.contains(item)) {
+            item.reboost();
             this.inventory.add(item);
         } else {
             item.increaseDurability();
@@ -117,4 +118,7 @@ public class Player extends Character  {
         generateCoordinates(world);
     }
 
+    public void reboost() {
+        setHealth(10);
+    }
 }

@@ -24,7 +24,9 @@ public class Main {
 
         for ( String s : massiiv) {
             System.out.println(s); // sout
+            Thread.sleep();
         }
+
 
     }
 }

@@ -1,12 +1,13 @@
 package ee.mihkel.character;
 
 import ee.mihkel.World;
+import ee.mihkel.WorldObject;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public abstract class Character {
+public abstract class Character implements WorldObject {
     private int xCoord;
     private int yCoord;
     private final char symbol;
@@ -23,7 +24,8 @@ public abstract class Character {
         this.isVisible = true;
     }
 
-    protected void generateCoordinates(World world) {
+    @Override
+    public void generateCoordinates(World world) {
         Random random = new Random();
         this.xCoord = random.nextInt(world.getWidth()-2)+1;
         this.yCoord = random.nextInt(world.getHeight()-2)+1;

@@ -1,12 +1,14 @@
 package ee.mihkel;
 
 import ee.mihkel.character.Enemy;
+import ee.mihkel.character.Healer;
 import ee.mihkel.character.Player;
 import ee.mihkel.character.QuestMaster;
 import ee.mihkel.item.*;
+import ee.mihkel.thread.ThreadController;
 
-import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
 
 // encapsulation - private/public
 // panen automaatselt kõik muutujad klassis private-ks
@@ -29,7 +31,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+//        ThreadController.startNewThreads();
+
 	    World world = new World(5,5);
+	    Timer timer = new Timer();
+	    GameController.startTimer(timer);
 
 	    Player player = new Player(world);
 	    world.addCharacter(player);
@@ -37,6 +43,8 @@ public class Main {
 	    world.addCharacter(enemy);
         QuestMaster questMaster = new QuestMaster(world);
         world.addCharacter(questMaster);
+        Healer healer = new Healer(world);
+        world.addCharacter(healer);
 
         Dagger dagger = new Dagger(world);
         world.addItem(dagger);
@@ -55,13 +63,13 @@ public class Main {
         try {
             while(!input.equals("end")) {
                 player.move(input, world);
-                GameController.checkPlayerInteractions(world, player, enemy, questMaster, dagger, hammer, sword, teleporter, scanner);
+                GameController.checkPlayerInteractions(world, player, enemy, questMaster, healer, dagger, hammer, sword, teleporter, scanner);
                 world.printMap();
                 input = scanner.nextLine();
             }
-            GameController.endGame(player);
+            GameController.endGame(player, timer);
         } catch (GameOverException e) {
-            GameController.endGame(player);
+            GameController.endGame(player, timer);
         }
     }
 

@@ -5,6 +5,11 @@ import ee.mihkel.World;
 public class Teleporter extends Item {
 
     public Teleporter(World world) {
-        super(world, 3, "Teleporteerija");
+        super(world, "Teleporteerija");
+        reboost();
+    }
+
+    public void reboost() {
+        setDurability(3);
     }
 }
