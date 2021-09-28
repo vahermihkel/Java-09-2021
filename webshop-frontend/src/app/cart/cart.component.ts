@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
+
+@Component({
+  selector: 'app-cart',
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.css']
+})
+export class CartComponent implements OnInit {
+  cartItems: any[] = [];
+  sumOfCart = 0;
+
+  // constructorisse siduge cartService
+  constructor(private cartService: CartService) { }
+
+  // this.cartItems saab väärtuse service-i sees olevast muutujast cartItemsInService
+  ngOnInit(): void {
+    this.cartItems = this.cartService.cartItemsInService;
+    this.calculateSumOfCart();
+  }
+
+  onEmptyCart() {
+    this.cartService.cartItemsInService = [];
+    this.cartItems = this.cartService.cartItemsInService;
+    this.calculateSumOfCart();
+  }
+
+  onRemoveFromCart(item: any) {
+    let index = this.cartService.cartItemsInService.indexOf(item);
+    this.cartService.cartItemsInService.splice(index, 1);
+    this.cartItems = this.cartService.cartItemsInService;
+    this.calculateSumOfCart();
+  }
+
+  private calculateSumOfCart() {
+    this.sumOfCart = 0;
+    this.cartItems.forEach(cartItem => {
+      this.sumOfCart += cartItem.price;
+    });
+  }
+}
