@@ -1,5 +1,5 @@
 <div *ngFor="let item of items">
-    <img src="{{ item.imgSrc }}" alt="">
+    <img src="{{ item.imgSrc }}" alt="" routerLink="ese/{{ item.title.replace('/','%60') }}">
     <div>{{ item.title }}</div>
     <div>{{ item.price }}</div>
     <button (click)="onAddToCart(item)">Lisa ostukorvi</button>

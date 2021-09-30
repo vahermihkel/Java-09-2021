@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
   }
 
   onRemoveFromCart(item: any) {
-    let index = this.cartService.cartItemsInService.indexOf(item);
+    const index = this.cartService.cartItemsInService.indexOf(item);
     this.cartService.cartItemsInService.splice(index, 1);
     this.cartItems = this.cartService.cartItemsInService;
     this.calculateSumOfCart();
