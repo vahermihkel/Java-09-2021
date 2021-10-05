@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../models/item.model';
 import { CartService } from '../services/cart.service';
 import { ItemService } from '../services/item.service';
 
@@ -8,20 +9,16 @@ import { ItemService } from '../services/item.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  items: any[] = [];
+  items: Item[] = [];
 
   constructor(private cartService: CartService,
     private itemService: ItemService) { }
 
   ngOnInit(): void {
-    console.log("jõudsin home componenti")
-    // võta itemService-i seest muutuja itemsInService
-    // väärtus ja pane see this.item -le
-    // (CartComponent ngOnInit sees)
     this.items = this.itemService.itemsInService;
   }
 
-  onAddToCart(item: any) {
+  onAddToCart(item: Item) {
     this.cartService.cartItemsInService.push(item);
   }
 }

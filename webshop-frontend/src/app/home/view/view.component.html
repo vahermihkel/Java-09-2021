@@ -1,1 +1,4 @@
-<p>view works!</p>
+<img src="{{ item.imgSrc }}" alt="">
+<div>{{ item.title }}</div>
+<div>{{ item.price }}</div>
+<button (click)="onAddToCart(item)">Lisa ostukorvi</button>

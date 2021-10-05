@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../models/item.model';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartItems: any[] = [];
+  cartItems: Item[] = [];
   sumOfCart = 0;
 
   // constructorisse siduge cartService
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
     this.calculateSumOfCart();
   }
 
-  onRemoveFromCart(item: any) {
+  onRemoveFromCart(item: Item) {
     const index = this.cartService.cartItemsInService.indexOf(item);
     this.cartService.cartItemsInService.splice(index, 1);
     this.cartItems = this.cartService.cartItemsInService;

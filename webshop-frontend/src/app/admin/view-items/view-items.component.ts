@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./view-items.component.css']
 })
 export class ViewItemsComponent implements OnInit {
-  items: any = [];
+  items: Item[] = [];
 
   constructor(private itemService: ItemService) { }
 
@@ -15,7 +16,7 @@ export class ViewItemsComponent implements OnInit {
     this.items = this.itemService.itemsInService;
   }
 
-  onRemoveItem(item: any) {
+  onRemoveItem(item: Item) {
     let index = this.itemService.itemsInService.indexOf(item);
     this.itemService.itemsInService.splice(index, 1);
     this.items = this.itemService.itemsInService;
@@ -24,7 +25,7 @@ export class ViewItemsComponent implements OnInit {
 
   // nupu sisse funktsioon onRemoveItem(item)
 
-  // tee sama funktsioon ka TS-i faili onRemoveItem(item: any) {}
+  // tee sama funktsioon ka TS-i faili onRemoveItem(item: Item) {}
   // tehke kustutamine CartComponent järgi - 
   // leia index
   // kustuta Service-st

@@ -9,7 +9,7 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements OnInit {
-  categories: any[] = [];
+  categories: string[] = [];
  
   constructor(private itemService: ItemService,
     private categoryService: CategoryService) { }
