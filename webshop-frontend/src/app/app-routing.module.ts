@@ -11,7 +11,9 @@ import { ViewComponent } from './home/view/view.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
+  // localhost:4200
   { path: "", component: HomeComponent },
+    // localhost:4200/ostukorv
   { path: "ostukorv", component: CartComponent },
   { path: "ese/:id", component: ViewComponent },
   { path: "admin", component: AdminHomeComponent },
