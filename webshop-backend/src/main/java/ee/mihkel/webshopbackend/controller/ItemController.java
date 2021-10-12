@@ -3,20 +3,28 @@ package ee.mihkel.webshopbackend.controller;
 import ee.mihkel.webshopbackend.model.Item;
 import ee.mihkel.webshopbackend.repository.ItemRepository;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 // veel beaniks tegemise võimalusi:
 // @Component
 // @Service
 // @Repository
+@CrossOrigin( origins = "http://localhost:4200" ) // kust saadakse controlleri päringutele ligi
 public class ItemController {
-    List<String> items = new ArrayList<>(Arrays.asList("Toode1", "Ese1", "Product1", "Item1")) ;
+    // 1a. PostgreSQL andmebaasiga ühendamine
+    // 1b. Swagger
+    // 2. Angulariga ühendamine
+    // 3. Custom Exceptioneid
+    // 4. Cache - vahemälu
+    // 5. Docker ja virtualisatsioon
 
     // otseühenduse selle teise klassiga
     @Autowired
@@ -35,27 +43,30 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
-    // TODO: peaks Itemiks tegema
     // delete päring aadressile localhost:8080/items/k
-    @DeleteMapping("items/{id}")
+    @DeleteMapping("delete-item/{id}")
         // saab URL-i parameetri kätte, mida üritab teha selliseks tüübiks nagu meil määratud
-    public void deleteItem(@PathVariable int id) {
-        items.remove(id);
+    public void deleteItem(@PathVariable Long id) {
+        //items.remove(id);
+        itemRepository.deleteById(id);
     }
 
 
-    @PostMapping("items")
+    @PostMapping("add-item")
         // nõuab päringuga ka mingisugust sisu (body), mida kui saab, üritab teha Item kujule
     public void addItem(@RequestBody Item item) {
+        System.out.println(item);
         itemRepository.save(item); // see on ka editi jaoks, ainult annan juba olemasoleva id kaasa
     }
 
-    // TODO: peaks Item kujule tegema
-    @GetMapping("items/{id}")
-    public String viewItem(@PathVariable int id) {
-        return items.get(id);
+    @GetMapping("view-item/{id}")
+    public Optional<Item> viewItem(@PathVariable Long id) {
+        return itemRepository.findById(id);
     }
-    // GET
-    // items-view
-    // viewItem()
+
+    @ApiOperation(value="Edits item from webshop. Needs ID inside body.")
+    @PostMapping("edit-item")
+    public void editItem(@RequestBody Item item) {
+        itemRepository.save(item);
+    }
 }

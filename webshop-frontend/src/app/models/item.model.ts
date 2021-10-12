@@ -4,7 +4,8 @@ export class Item {
         public price: number,
         public imgSrc: string,
         public category: string,
-        public isActive: boolean
+        public isActive: boolean,
+        public id?: number
     ) { }
 }
 

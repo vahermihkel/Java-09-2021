@@ -1,9 +1,7 @@
 package ee.mihkel.webshopbackend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 public class Item {
     @Id
@@ -22,5 +21,6 @@ public class Item {
     private double price;
     private String imgSrc;
     private String category;
+    @JsonProperty
     private boolean isActive;
 }

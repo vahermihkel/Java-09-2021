@@ -13,7 +13,9 @@ export class ViewItemsComponent implements OnInit {
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.items = this.itemService.itemsInService;
+    this.itemService.getItems().subscribe(itemsFromBackend => {
+      this.items = itemsFromBackend;
+    });
   }
 
   onRemoveItem(item: Item) {
