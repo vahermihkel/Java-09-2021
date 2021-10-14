@@ -21,4 +21,16 @@ export class ItemService {
   getOneItem(id: number) {
     return this.httpClient.get<Item>("http://localhost:8080/view-item/" + id);
   }
+
+  deleteItem(id: number) {
+    return this.httpClient.delete("http://localhost:8080/delete-item/" + id);
+  }
+
+  addItem(item: Item) {
+    return this.httpClient.post("http://localhost:8080/add-item", item);
+  }
+
+  editItem(item: Item) {
+    return this.httpClient.post("http://localhost:8080/edit-item", item);
+  }
 }

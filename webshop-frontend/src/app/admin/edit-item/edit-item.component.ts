@@ -30,28 +30,44 @@ export class EditItemComponent implements OnInit {
   }
 
   private getItem() {
-    let _id = this.route.snapshot.paramMap.get("itemId")?.replace("%60", "/");
-    if (_id) {
-      this.id = _id;
-      let _item = this.itemService.itemsInService.find(item => item.title == this.id);
-      if (_item != undefined) {
-        this.item = _item;
-        this.editItemForm = new FormGroup({
-          title: new FormControl(this.item.title),
-          price: new FormControl(this.item.price),
-          category: new FormControl(this.item.category),
-          imgSrc: new FormControl(this.item.imgSrc),
-          isActive: new FormControl(this.item.isActive)
-        });
-      }
+    // let _id = this.route.snapshot.paramMap.get("itemId")?.replace("%60", "/");
+    // if (_id) {
+    //   this.id = _id;
+    //   let _item = this.itemService.itemsInService.find(item => item.title == this.id);
+    //   if (_item != undefined) {
+    //     this.item = _item;
+
+    // view.component.ts sees on lahendus
+
+    // view-items.htmlis ka saatmise korda tegema!
+
+    // alumine lõik peab olema subscribe sees
+    const itemId = Number(this.route.snapshot.paramMap.get("itemId"));
+    if (!isNaN(itemId)) {
+      this.itemService.getOneItem(itemId).subscribe(itemFromDb => {
+        this.item = itemFromDb;
+        if (this.item) {
+          this.editItemForm = new FormGroup({
+            id: new FormControl(this.item.id),
+            title: new FormControl(this.item.title),
+            price: new FormControl(this.item.price),
+            category: new FormControl(this.item.category),
+            imgSrc: new FormControl(this.item.imgSrc),
+            isActive: new FormControl(this.item.isActive)
+          });
+        }
+      })
     }
+    //   }
+    // }
   }
 
   onSubmit() {
     if (this.editItemForm.valid) {
-      const index = this.itemService.itemsInService.indexOf(this.item);
-      this.itemService.itemsInService[index] = this.editItemForm.value;
-      this.router.navigateByUrl("/admin/esemed");
+      this.itemService.editItem(this.editItemForm.value).subscribe(() => {
+        this.router.navigateByUrl("/admin/esemed");
+      });
+
     }
   }
 }

@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +58,8 @@ public class ItemController {
     }
 
     @GetMapping("view-item/{id}")
+        // Item ehk {title: "asdas",price: 2}
+        // Optional - võib olla ka "null"
     public Optional<Item> viewItem(@PathVariable Long id) {
         return itemRepository.findById(id);
     }

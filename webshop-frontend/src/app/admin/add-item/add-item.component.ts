@@ -10,7 +10,7 @@ import { ItemService } from 'src/app/services/item.service';
 })
 export class AddItemComponent implements OnInit {
   categories: string[] = [];
- 
+
   constructor(private itemService: ItemService,
     private categoryService: CategoryService) { }
 
@@ -20,8 +20,7 @@ export class AddItemComponent implements OnInit {
 
   onSubmit(addItemForm: NgForm) {
     if (addItemForm.valid) {
-      console.log(addItemForm);
-      this.itemService.itemsInService.push(addItemForm.value);
+      this.itemService.addItem(addItemForm.value).subscribe();
     }
   }
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+// asendab generate - constructor/getter/setter/toString
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

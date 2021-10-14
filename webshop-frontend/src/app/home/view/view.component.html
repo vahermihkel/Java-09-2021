@@ -1,4 +1,19 @@
-<img src="{{ item.imgSrc }}" alt="">
-<div>{{ item.title }}</div>
-<div>{{ item.price }}</div>
-<button (click)="onAddToCart(item)">Lisa ostukorvi</button>
+<!-- alguses on item tühjus ja ta ei saa tühjuse
+küljest võtta .imgSrc ja .title jne
+item saab väärtuse andmebaasipäringust ca 0.2 / 0.002
+sekundi pärast, aga ta jõuab enne HTMLi hakata kuvama
+(tegemist on asünkroonse funktsiooniga ehk selle päringu
+tagastust ei oodata lõpuni ja minnakse edasi)
+
+aga nii kui väärtuse saab andmebaasipäringu lõpuks, siis
+kuvab. enne jõuab aga errori console-i välja printida-->
+<div *ngIf="item; else noItemError">
+    <img src="{{ item.imgSrc }}" alt="">
+    <div>{{ item.title }}</div>
+    <div>{{ item.price }}</div>
+    <button (click)="onAddToCart(item)">Lisa ostukorvi</button>
+</div>
+
+<ng-template #noItemError> 
+    <h2 style="text-align: center; color: red">Eset ei leitud</h2>
+</ng-template>

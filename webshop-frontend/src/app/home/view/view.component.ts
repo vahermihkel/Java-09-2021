@@ -21,11 +21,18 @@ export class ViewComponent implements OnInit {
     private cartService: CartService) { }
 
   ngOnInit(): void {
-    const itemId = this.route.snapshot.paramMap.get("id");
-    const itemTitle = itemId?.replace("%60", "/");
-    let _item = this.itemService.itemsInService.find(item => item.title == itemTitle);
-    if (_item) {
-      this.item = _item;
+    const itemId = Number(this.route.snapshot.paramMap.get("id"));
+    // const itemTitle = itemId?.replace("%60", "/");
+    // let _item = this.itemService.itemsInService.find(item => item.title == itemTitle);
+    // if (_item) {
+    //   this.item = _item;
+    // }
+
+    // Not a Number ehk ei suutnud numbriks teha 
+    if (!isNaN(itemId)) {
+      this.itemService.getOneItem(itemId).subscribe(itemFromDb => {
+        this.item = itemFromDb;
+      })
     }
   }
 

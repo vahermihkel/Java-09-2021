@@ -9,6 +9,7 @@ import { ItemService } from 'src/app/services/item.service';
 })
 export class ViewItemsComponent implements OnInit {
   items: Item[] = [];
+  message = "";
 
   constructor(private itemService: ItemService) { }
 
@@ -19,9 +20,19 @@ export class ViewItemsComponent implements OnInit {
   }
 
   onRemoveItem(item: Item) {
-    let index = this.itemService.itemsInService.indexOf(item);
-    this.itemService.itemsInService.splice(index, 1);
-    this.items = this.itemService.itemsInService;
+    this.itemService.deleteItem(Number(item.id)).subscribe(
+      () => {
+        console.log("EDUKAS");
+        this.itemService.getItems().subscribe(itemsFromBackend => {
+          this.items = itemsFromBackend;
+        });
+      },
+      errorResponse => {
+        console.log("SAI ERRORI")
+        console.log(errorResponse.error.message);
+        this.message = errorResponse.error.message;
+        setTimeout(() => this.message = "", 3000);
+      });
   }
   // tehke html HOME järgi
 
