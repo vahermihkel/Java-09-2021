@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../models/item.model';
 import { CartService } from '../services/cart.service';
+import { EverypayService } from '../services/everypay.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,8 @@ export class CartComponent implements OnInit {
   sumOfCart = 0;
 
   // constructorisse siduge cartService
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,
+    private everypayService: EverypayService) { }
 
   // this.cartItems saab väärtuse service-i sees olevast muutujast cartItemsInService
   ngOnInit(): void {
@@ -38,5 +40,11 @@ export class CartComponent implements OnInit {
     this.cartItems.forEach(cartItem => {
       this.sumOfCart += cartItem.price;
     });
+  }
+
+  onPayment() {
+    this.everypayService.getEverypayLink(this.sumOfCart).subscribe(
+      response => { location.href = response },
+      error => { console.log(error) });
   }
 }

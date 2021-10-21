@@ -16,3 +16,10 @@
 <br><br>
 
 <div *ngIf="cartItems.length > 0">KOKKU: {{ sumOfCart }}</div>
+
+<div 
+    *ngIf="cartItems.length > 0" 
+    (click)="onPayment()" 
+    class="payment-button">
+    Maksma
+</div>
