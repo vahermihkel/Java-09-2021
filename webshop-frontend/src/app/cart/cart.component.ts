@@ -11,6 +11,7 @@ import { EverypayService } from '../services/everypay.service';
 export class CartComponent implements OnInit {
   cartItems: Item[] = [];
   sumOfCart = 0;
+  errorMessage = "";
 
   // constructorisse siduge cartService
   constructor(private cartService: CartService,
@@ -43,8 +44,11 @@ export class CartComponent implements OnInit {
   }
 
   onPayment() {
-    this.everypayService.getEverypayLink(this.sumOfCart).subscribe(
-      response => { location.href = response },
-      error => { console.log(error) });
+    this.everypayService.getEverypayLink(this.cartItems).subscribe(
+      response => { location.href = response.link },
+      error => {
+        this.errorMessage = "Unexpected error happened";
+        setTimeout(() => this.errorMessage = "", 5000)
+      });
   }
 }

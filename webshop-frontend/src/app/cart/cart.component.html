@@ -1,3 +1,5 @@
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }} </div>
+
 <button *ngIf="cartItems.length > 0" (click)="onEmptyCart()">Tühjenda ostukorv</button>
 
 <br><br>
