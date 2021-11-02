@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootTest
@@ -22,7 +23,7 @@ class WebshopBackendApplicationTests {
 
     @Test
     void assertThatAddedItemExistsInRepository_ifAdded() throws ExecutionException {
-        itemService.updateItem(new Item(99L,"Ese1",100.0,"www.ee","kategooria", true));
+        itemService.updateItem(new Item(99L,"Ese1",BigDecimal.TEN,"www.ee","kategooria", true));
         Item item = itemService.getItem(99L);
         Assertions.assertEquals("Ese1", item.getTitle());
     }
@@ -38,7 +39,7 @@ class WebshopBackendApplicationTests {
     }
 
     private void deleteItemFromService() {
-        itemService.updateItem(new Item(99L,"Ese1",100.0,"www.ee","kategooria", true));
+        itemService.updateItem(new Item(99L,"Ese1",BigDecimal.TEN,"www.ee","kategooria", true));
         itemService.deleteItem(99L);
     }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 // asendab generate - constructor/getter/setter/toString
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class Item {
     @GeneratedValue
     private Long id;
     private String title;
-    private double price;
+    private BigDecimal price;
     private String imgSrc;
     private String category;
     @JsonProperty

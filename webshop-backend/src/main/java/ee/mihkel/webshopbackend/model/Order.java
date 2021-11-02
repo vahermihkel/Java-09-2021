@@ -2,10 +2,7 @@ package ee.mihkel.webshopbackend.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.TableGenerator;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,10 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-public class ItemOrder {
+@Table(name="orders")
+public class Order {
     @Id
     @GeneratedValue
-    Long id;
-    int totalSum;
-    String tellija;
+    private Long id;
+    private int totalSum;
+
+    @OneToMany()
+    private List<Item> items;
 }
