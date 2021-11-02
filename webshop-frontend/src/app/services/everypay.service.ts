@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EverypayLink } from '../models/everypay-link.model';
+import { EverypayLink } from '../models/everypay-link.interface';
 import { Item } from '../models/item.model';
 
 @Injectable({

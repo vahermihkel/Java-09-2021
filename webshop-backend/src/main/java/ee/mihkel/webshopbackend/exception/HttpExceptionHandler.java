@@ -42,6 +42,16 @@ public class ItemExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ItemNotFoundResponse> handleException(UserAlreadyExistsException e) {
+        ItemNotFoundResponse response = new ItemNotFoundResponse(
+                new Date(),
+                "Kasutaja on juba registreerunud",
+                HttpStatus.BAD_REQUEST
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
     // samamoodi nagu ülemine Handler,
     // muutke sulgude sisene sisu --- mis exceptioni puhul ta kinni püüab
     // muutke sõnum

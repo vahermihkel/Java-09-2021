@@ -1,5 +1,8 @@
 <div class="navbar">
     <img class="logo" routerLink="/" src="assets/webshio.png" alt="">
     <button routerLink="admin">Admini vaade</button>
+    <button *ngIf="!isLoggedIn" routerLink="logi-sisse">Logi sisse</button>
+    <button *ngIf="!isLoggedIn" routerLink="registreerimine">Registreeru</button>
+    <button *ngIf="isLoggedIn" (click)="onLogout()">Logi välja</button>
     <img class="cart-button" routerLink="ostukorv" src="assets/shopping-cart.svg" alt="">
 </div>

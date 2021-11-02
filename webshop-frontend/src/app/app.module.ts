@@ -15,6 +15,8 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { ViewComponent } from './home/view/view.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     AdminHomeComponent,
     CategoryComponent,
     ViewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
