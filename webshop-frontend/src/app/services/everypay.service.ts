@@ -10,6 +10,8 @@ export class EverypayService {
   constructor(private httpClient: HttpClient) { }
 
   getEverypayLink(orderItems: Item[]) {
-    return this.httpClient.post<EverypayLink>("http://localhost:8080/payment", orderItems);
+    let personCode = sessionStorage.getItem("user");
+    return this.httpClient.post<EverypayLink>("http://localhost:8080/payment", 
+              {personCode: personCode, items: orderItems});
   }
 }

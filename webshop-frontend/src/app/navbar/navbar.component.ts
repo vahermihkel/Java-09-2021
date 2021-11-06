@@ -15,6 +15,9 @@ export class NavbarComponent implements OnInit {
     this.authService.isLoggedInChanged.subscribe(loggedInValue => {
         this.isLoggedIn = loggedInValue;
     });
+    if (sessionStorage.getItem("user")) {
+      this.isLoggedIn = true;
+    }
     console.log(this.isLoggedIn);
   }
 

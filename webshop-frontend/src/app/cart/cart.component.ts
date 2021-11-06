@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../models/item.model';
+import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { EverypayService } from '../services/everypay.service';
 
@@ -12,15 +13,23 @@ export class CartComponent implements OnInit {
   cartItems: Item[] = [];
   sumOfCart = 0;
   errorMessage = "";
+  isLoggedIn = false;
 
   // constructorisse siduge cartService
-  constructor(private cartService: CartService,
+  constructor(private authService: AuthService,
+    private cartService: CartService,
     private everypayService: EverypayService) { }
 
   // this.cartItems saab väärtuse service-i sees olevast muutujast cartItemsInService
   ngOnInit(): void {
     this.cartItems = this.cartService.cartItemsInService;
     this.calculateSumOfCart();
+    this.authService.isLoggedInChanged.subscribe(loggedInValue => {
+      this.isLoggedIn = loggedInValue;
+    });
+    if (sessionStorage.getItem("user")) {
+      this.isLoggedIn = true;
+    }
   }
 
   onEmptyCart() {

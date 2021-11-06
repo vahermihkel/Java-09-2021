@@ -20,8 +20,16 @@
 <div *ngIf="cartItems.length > 0">KOKKU: {{ sumOfCart }}</div>
 
 <div 
-    *ngIf="cartItems.length > 0" 
+    *ngIf="cartItems.length > 0 && isLoggedIn" 
     (click)="onPayment()" 
     class="payment-button">
     Maksma
+</div>
+
+<!-- kui on logi-sisse siis on relative path ehk liidab juurde
+kui on /logi-sisse on absolute path ehk võtab algusest -->
+<div routerLink="/logi-sisse"
+    style="text-decoration: underline; cursor: pointer;" 
+    *ngIf="cartItems.length > 0 && !isLoggedIn">
+    Logi maksmiseks sisse
 </div>
