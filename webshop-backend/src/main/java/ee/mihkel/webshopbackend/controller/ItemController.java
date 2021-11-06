@@ -1,8 +1,6 @@
 package ee.mihkel.webshopbackend.controller;
 
-import ee.mihkel.webshopbackend.exception.ItemNotFoundException;
 import ee.mihkel.webshopbackend.model.Item;
-import ee.mihkel.webshopbackend.repository.ItemRepository;
 
 import ee.mihkel.webshopbackend.service.ItemService;
 import io.swagger.annotations.ApiOperation;
@@ -10,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-@RestController
+
 // veel beaniks tegemise võimalusi:
 // @Component
 // @Service
 // @Repository
+@RestController
 public class ItemController {
     // 1a. PostgreSQL andmebaasiga ühendamine
     // 1b. Swagger

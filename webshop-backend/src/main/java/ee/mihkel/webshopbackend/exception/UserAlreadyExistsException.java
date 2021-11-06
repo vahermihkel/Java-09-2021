@@ -1,2 +1,4 @@
-package ee.mihkel.webshopbackend.exception;public class UserAlreadyExistsException {
+package ee.mihkel.webshopbackend.exception;
+
+public class UserAlreadyExistsException extends Exception {
 }

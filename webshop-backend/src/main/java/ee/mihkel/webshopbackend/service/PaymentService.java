@@ -4,6 +4,7 @@ import ee.mihkel.webshopbackend.model.Item;
 import ee.mihkel.webshopbackend.model.input.EverypayResponse;
 import ee.mihkel.webshopbackend.model.output.EverypayData;
 import ee.mihkel.webshopbackend.model.output.EverypayLink;
+import ee.mihkel.webshopbackend.util.OrderUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,21 +53,19 @@ public class PaymentService {
     @Autowired
     RestTemplate restTemplate;
 
-    public EverypayLink makePayment(List<Item> orderItems) {
+    public EverypayLink makePayment(List<Item> orderItems, Long orderId) {
         log.info("Started everypay payment");
 
-        BigDecimal totalSum = orderItems.stream()
-                    .map(Item::getPrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalSum = OrderUtil.getSumOfOrder(orderItems);
 
-        String orderId = "91221";
+
         ZonedDateTime timestamp = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault());
 
         EverypayData data = new EverypayData();
         data.setApi_username(userName);
         data.setAccount_name(accountName);
         data.setAmount(totalSum);
-        data.setOrder_reference(orderId);
+        data.setOrder_reference(orderId.toString());
         data.setToken_agreement(tokenAgreement);
         try {
             data.setNonce(encode(userName+orderId+timestamp));

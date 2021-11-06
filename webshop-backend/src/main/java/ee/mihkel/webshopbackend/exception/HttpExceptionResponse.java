@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItemNotFoundResponse {
+public class HttpExceptionResponse {
     private Date date;
     private String message;
     private HttpStatus httpStatus;
