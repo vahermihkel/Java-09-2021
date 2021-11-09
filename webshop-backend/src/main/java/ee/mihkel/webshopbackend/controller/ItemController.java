@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 // @Service
 // @Repository
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ItemController {
     // 1a. PostgreSQL andmebaasiga ühendamine
     // 1b. Swagger
