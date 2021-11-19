@@ -1,0 +1,17 @@
+.navbar {
+    height: 150px;
+    background-color: beige;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 140px;
+    cursor: pointer;
+}
+
+.cart-button {
+    height: 50px;
+    margin: 50px;
+    cursor: pointer;
+}

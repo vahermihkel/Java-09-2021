@@ -1,0 +1,20 @@
+<div *ngIf="message" class="error-message">{{ message }} </div>
+<br><br>
+
+<form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm">
+    <label>Isikukood</label> <br>
+    <input ngModel name="personCode" type="text" required> <br>
+    <label>Parool</label> <br>
+    <input ngModel name="password" type="password" required> <br>
+    <label>Parool uuesti</label> <br>
+    <input ngModel name="password2" type="password" required> <br>
+    <label>Eesnimi</label> <br>
+    <input ngModel name="firstName" type="text" required> <br>
+    <label>Perenimi</label> <br>
+    <input ngModel name="lastName" type="text" required> <br>
+    <label>Telefoninumber</label> <br>
+    <input ngModel name="phoneNumber" type="text"> <br>
+    <label>E-mail</label> <br>
+    <input ngModel name="email" type="text"> <br>
+    <button>Registreeru</button>
+</form>

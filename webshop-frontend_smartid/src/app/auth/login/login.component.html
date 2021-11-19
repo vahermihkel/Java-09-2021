@@ -1,0 +1,10 @@
+<div *ngIf="message" class="error-message">{{ message }} </div>
+<br><br>
+
+<form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+    <label>Isikukood</label> <br>
+    <input ngModel name="personCode" type="text" required> <br>
+    <label>Parool</label> <br>
+    <input ngModel name="password" type="password" required> <br>
+    <button>Logi sisse</button>
+</form>

@@ -1,0 +1,37 @@
+<div class="login-wrapper d-flex justify-content-center">
+  <br>
+  <br>
+  <form (ngSubmit)="onLoginClick()"
+        #smartIdForm="ngForm"
+        class="d-flex flex-column">
+
+    <div>
+      <label class="bold-left-margin"
+             for="input-field">
+        {{ "Personal code"  }}</label>
+      <div class="input-group">
+        <div class="input">
+          <input type="text"
+                 name="personalCode"
+                 placeholder="{{ 'personal code'  }}"
+                 id="input-field"
+                 class="form-control"
+                 [(ngModel)]="personalCode"
+                 required />
+        </div>
+      </div>
+    </div>
+    <br />
+    <button type="submit"
+            class="btn btn-primary"
+            id="smartIdLoginButton"
+            [disabled]="!smartIdForm.valid">
+      {{ "LOG IN"  }}
+    </button>
+    <br />
+  </form>
+  <p class="bold-center title-center verification-text"
+     *ngIf="verificationCode">{{ "Check the verification code:" }}</p>
+  <p class="text-center">{{ verificationCode }}</p>
+
+</div>

@@ -1,0 +1,35 @@
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }} </div>
+
+<button *ngIf="cartItems.length > 0" (click)="onEmptyCart()">Tühjenda ostukorv</button>
+
+<br><br>
+<div *ngIf="cartItems.length == 0">Ostukorv on tühi</div>
+<div *ngIf="cartItems.length > 0">Ostukorvis on kokku {{ cartItems.length }} eset</div>
+
+<br><br>
+
+<div *ngFor="let cartItem of cartItems">
+    <img src="{{ cartItem.imgSrc }}" alt="">
+    <div>{{ cartItem.title }}</div>
+    <div>{{ cartItem.price }}</div>
+    <button (click)="onRemoveFromCart(cartItem)">X</button>
+</div>
+
+<br><br>
+
+<div *ngIf="cartItems.length > 0">KOKKU: {{ sumOfCart }}</div>
+
+<div 
+    *ngIf="cartItems.length > 0 && isLoggedIn" 
+    (click)="onPayment()" 
+    class="payment-button">
+    Maksma
+</div>
+
+<!-- kui on logi-sisse siis on relative path ehk liidab juurde
+kui on /logi-sisse on absolute path ehk võtab algusest -->
+<div routerLink="/logi-sisse"
+    style="text-decoration: underline; cursor: pointer;" 
+    *ngIf="cartItems.length > 0 && !isLoggedIn">
+    Logi maksmiseks sisse
+</div>

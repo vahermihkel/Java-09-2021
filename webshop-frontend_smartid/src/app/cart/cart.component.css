@@ -1,0 +1,22 @@
+.payment-button {
+    text-align: center;
+    width: 100px;
+    background-color: blue;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.payment-button:hover {
+    background-color: rgb(5, 5, 221);
+}   
+
+.error-message {
+    text-align: center;
+    background-color: red;
+    padding: 10px;
+    width: 250px;
+    margin: auto;
+    border-radius: 10px;
+}
